@@ -1,4 +1,3 @@
-
 try:
     with open('client.txt', 'r', encoding='utf-8') as f:
         file = f.read().split('\n')
@@ -11,6 +10,7 @@ def decorator(func):
         func(person)
         if count == 4:
             print("Вы получаете бесплатную плюшку!")
+
     return wrapper
 
 
@@ -28,4 +28,3 @@ while not i > 4:
         temp = input("Введите имя: ")
         greeting(temp, i)
         i += 1
-
