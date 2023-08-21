@@ -1,16 +1,13 @@
-try:
-    with open('client.txt', 'r', encoding='utf-8') as f:
-        file = f.read().split('\n')
-except FileNotFoundError:
-    print("Файл не найден")
-
-
 def decorator(func):
-    def wrapper(person, count):
-        func(person)
-        if count == 4:
-            print("Вы получаете бесплатную плюшку!")
+    counter = 0
 
+    def wrapper(person):
+        nonlocal counter
+        counter += 1
+        func(person)
+        if counter == 5:
+            print("Вы получаете бесплатную плюшку!")
+            counter = 0
     return wrapper
 
 
@@ -19,12 +16,21 @@ def greeting(person):
     print(f"Привет, {person}!")
 
 
-i = 0
-while not i > 4:
-    if i < len(file):
-        greeting(file[i], i)
-        i += 1
+try:
+    with open('client.txt', 'r', encoding='utf-8') as f:
+        while True:
+            line = f.readline()
+            if not line:
+                break
+            greeting(line.strip())
+except FileNotFoundError:
+    print("Файл не найден")
+
+
+while True:
+    user_input = input("Введите имя посетителя (или exit для выхода): ")
+    if user_input.lower() == "exit":
+        print("Программа завершена.")
+        break
     else:
-        temp = input("Введите имя: ")
-        greeting(temp, i)
-        i += 1
+        greeting(user_input)
