@@ -3,56 +3,69 @@ from accessify import protected
 
 
 class ApiRequest(ABC):
+
+    @property
+    @abstractmethod
+    def payload(self):
+        pass
+
+    @payload.setter
+    @abstractmethod
+    def payload(self, value):
+        pass
+
+    @property
+    @abstractmethod
+    def method(self):
+        pass
+
+    @protected
+    @method.setter
+    @abstractmethod
+    def method(self, value):
+        pass
+
+
+class GetRequest(ApiRequest):
     def __init__(self, payload=''):
-        self.__METHOD = None
-        self.__payload = payload
+        self.method = "GET"
+        self.payload = payload
 
     @property
     def payload(self):
         return self.__payload
 
     @payload.setter
-    @abstractmethod
-    def payload(self, payload=''):
-        pass
+    def payload(self, value):
+        self.__payload = value
 
     @property
     def method(self):
         return self.__METHOD
 
-    @protected
     @method.setter
-    def method(self, method):
-        self.__METHOD = method
-
-
-class GetRequest(ApiRequest):
-    def __init__(self, payload=None):
-        super().__init__()
-        self._ApiRequest__payload = payload
-        self.method = "GET"
-
-    @ApiRequest.payload.setter
-    def payload(self, payload=''):
-        self._ApiRequest__payload = payload
+    def method(self, value):
+        self.__METHOD = value
 
 
 class PostRequest(ApiRequest):
-    def __init__(self, payload=None):
-        super().__init__()
-        self._ApiRequest__payload = payload
+    def __init__(self, payload=''):
         self.method = "POST"
+        self.payload = payload
 
-    @ApiRequest.payload.setter
-    def payload(self, payload=''):
-        self._ApiRequest__payload = payload
+    @property
+    def payload(self):
+        return self.__payload
 
+    @payload.setter
+    def payload(self, value):
+        self.__payload = value
 
-if __name__ == "__main__":
-    get = GetRequest("Гет запрос")
-    post = PostRequest('Пост запрос')
-    print(get.method, get.payload, post.method, post.payload)
-    get.payload = "Гет ответ"
-    post.payload = 'Пост ответ'
-    print(get.method, get.payload, post.method, post.payload)
+    @property
+    def method(self):
+        return self.__METHOD
+
+    @method.setter
+    def method(self, value):
+        self.__METHOD = value
 
