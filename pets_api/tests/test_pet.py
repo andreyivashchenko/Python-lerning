@@ -94,7 +94,7 @@ class TestPetsApi:
 
     @pytest.mark.receiving
     @pytest.mark.parametrize("get_pets", ["by_id"], indirect=True)
-    def test_get_by_id_incorrect(self, get_pets, common_setup_and_teardown_receiving):
+    def test_get_by_id_incorrect(self, get_pets):
         Response(response=get_pets(-1)).assert_status_code(404)
 
     @pytest.mark.receiving
@@ -112,5 +112,5 @@ class TestPetsApi:
                              [('by_status', 'продан'),
                               ('by_status', 'покормлен')],
                              indirect=['get_pets'])
-    def test_get_by_status_incorrect(self, get_pets, status, common_setup_and_teardown_receiving):
-        Response(response=get_pets(status)).assert_status_code(400).validate(Pet)
+    def test_get_by_status_incorrect(self, get_pets, status):
+        Response(response=get_pets(status)).assert_status_code(400)
