@@ -41,8 +41,8 @@ def get_pets(request):
         raise ValueError("Неверный параметр")
 
 
-@pytest.fixture(scope='class')
-def adding_or_removing_a_pet_by_id(request):
+@pytest.fixture(scope='function')
+def adding_a_pet_by_id(request):
     params = request.param
 
     id_pet = requests.post(url=BASE_URL, json=PetGenerator().build()).json()['id']
