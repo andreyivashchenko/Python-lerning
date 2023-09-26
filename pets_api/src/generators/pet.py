@@ -1,12 +1,18 @@
+import faker
+
 from pets_api.src.baseclasses.builder import BuilderBaseClass
 from faker import Faker
+fake = Faker("en_US")
 
 
-
-class Pet_generator(BuilderBaseClass):
+class PetGenerator(BuilderBaseClass):
     def __init__(self):
         super().__init__()
         self.reset()
+
+    def set_pet_id(self, id=None):
+        self.result['id'] = id
+        return self
 
     def set_status(self, status='sold'):
         self.result['status'] = status
@@ -20,7 +26,7 @@ class Pet_generator(BuilderBaseClass):
         self.result["photoUrls"] = urls
         return self
 
-    def set_name(self, name="Барсик"):
+    def set_name(self, name=fake.first_name()):
         self.result['name'] = name
         return self
 
@@ -29,7 +35,7 @@ class Pet_generator(BuilderBaseClass):
         return self
 
     def reset(self):
-        self.set_name().set_status().set_category().set_photo_urls().set_tags()
+        self.set_pet_id().set_name().set_status().set_category().set_photo_urls().set_tags()
         return self
 
 

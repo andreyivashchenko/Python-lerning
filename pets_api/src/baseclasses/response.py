@@ -5,6 +5,7 @@ class Response:
         self.response = response
         self.response_json = response.json()
         self.response_status = response.status_code
+        self.response_message = ''
 
     def assert_status_code(self, status_code):
 
@@ -12,6 +13,11 @@ class Response:
             assert self.response_status in status_code, self
         else:
             assert self.response_status == status_code, self
+        return self
+
+    def assert_message(self, message):
+        self.response_message = self.response_json["message"]
+        assert self.response_message == f'{message}', self
         return self
 
     def validate(self, schema):
