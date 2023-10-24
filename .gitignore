@@ -1,2 +1,4 @@
 venv
 .idea
+DB/reports
+pets_api/reports

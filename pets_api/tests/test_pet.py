@@ -114,3 +114,4 @@ class TestPetsApi:
                              indirect=['get_pets'])
     def test_get_by_status_incorrect(self, get_pets, status):
         Response(response=get_pets(status)).assert_status_code(400)
+

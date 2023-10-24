@@ -1,4 +1,3 @@
-import faker
 
 from pets_api.src.baseclasses.builder import BuilderBaseClass
 from faker import Faker
